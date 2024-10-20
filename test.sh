@@ -7,30 +7,27 @@ if [ $# -lt 1 ]; then
 fi 
 
 # create log dir if not already created
-LOGDIR="./test_directory/log"
-mkdir $LOGDIR
+LOGDIR="$PWD"/test_directory/LOG
+mkdir "$LOGDIR"
 
 # initialize random generator with current timestamp
 RANDOM=$(date +%s)
 
 # Create $1 (first argument) files with random sizes up to 2048m
-for i in $(seq $1); do
-    # get size of file to be created
+for i in $(seq "$1"); do
     R_SIZE=$(($RANDOM % 2048)) 
-    # file path
+    # File path
     FILEPATH="${LOGDIR}/example${i}.file"
-    # flags for truncate command
-    FLAGS="-s ${R_SIZE}m $FILEPATH"
 
-    # echo current file status
-    if [ -f $FILEPATH ]; then
+    # Echo current file status
+    if [ -f "$FILEPATH" ]; then
         echo "${FILEPATH} has been overwritten"
     else 
         echo "${FILEPATH} has been created"
     fi
 
-    # create SPARSE file (filled with null bytes only) with given size
-    truncate $FLAGS
+    # Create sparse file with the given size
+    truncate -s "${R_SIZE}m" "$FILEPATH"
 done
 
 echo "Test cases successfully created"

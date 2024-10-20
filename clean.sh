@@ -1,6 +1,4 @@
 #!/bin/bash
 
-LOGDIR="./test_directory/log"
-# Delete files matching the pattern
-# (./test_directory/log/example?.file)
-rm -f "$PWD"/"$LOGDIR"/example?.file
+rm -f "$PWD"/test_directory/BACKUP/*
+rm -f "$PWD"/test_directory/LOG/example?.file
